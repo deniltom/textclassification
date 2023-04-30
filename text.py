@@ -6,7 +6,7 @@ import streamlit as st
 import pickle
 
 # Read the dataset
-bbc_text = pd.read_csv(r"C:\Users\denil\Downloads\bbc-text.txt")
+bbc_text = pd.read_csv(r"bbc-text.txt")
 bbc_text = bbc_text.rename(columns={'text': 'News_Headline'}, inplace=False)
 bbc_text.category = bbc_text.category.map({'tech':0, 'business':1, 'sport':2, 'entertainment':3, 'politics':4})
 
@@ -30,8 +30,8 @@ with open('model.pkl', 'wb') as f:
     pickle.dump(naivebayes, f)
 
 # Define the Streamlit app
-st.header('Demo')
-input_text = st.text_area("Please enter the text", value="")
+st.header('Text Classification')
+input_text = st.text_area("Enter the text", value="")
 if st.button("Check"):
     input_text_transformed = vector.transform([input_text]).toarray()
     prediction = naivebayes.predict(input_text_transformed)[0]
